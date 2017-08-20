@@ -1,0 +1,69 @@
+{
+    "default": {
+        "b": [
+            {
+                "style": {
+                    "border": "none"
+                }
+            }
+        ],
+        "c": [
+            {
+                "selectors": [
+                    "b"
+                ],
+                "style": {
+                    "color": "red"
+                }
+            }
+        ]
+    },
+    "Navbar": {
+        "container1": [
+            {
+                "style": {
+                    "flexDirection": "column",
+                    "alignItems": "center"
+                }
+            }
+        ],
+        "container2": [
+            {
+                "selectors": [
+                    "container1"
+                ],
+                "style": {
+                    "width": 80,
+                    "paddingTop": 7,
+                    "paddingBottom": 10
+                }
+            }
+        ],
+        "container3": [
+            {
+                "selectors": [
+                    "container2",
+                    "container1"
+                ],
+                "style": {
+                    "width": 80,
+                    "paddingTop": 7,
+                    "paddingBottom": 10
+                }
+            }
+        ],
+        "triangle": [
+            {
+                "style": {
+                    "borderTopWidth": 5,
+                    "borderLeftWidth": 5,
+                    "borderRightWidth": 5,
+                    "borderTopColor": "orange",
+                    "borderLeftColor": "transparent",
+                    "borderRightColor": "transparent",
+                    "backgroundColor": "transparent"
+                }
+            }
+        ]
+    }
+}

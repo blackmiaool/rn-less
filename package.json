@@ -1,0 +1,38 @@
+{
+  "name": "rn-less",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "cd react-native-css && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackmiaool/rn-less.git"
+  },
+  "author": "blackmiaool",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackmiaool/rn-less/issues"
+  },
+  "homepage": "https://github.com/blackmiaool/rn-less#readme",
+  "dependencies": {
+    "babel-generator": "^6.26.0",
+    "babel-traverse": "^6.26.0",
+    "babel-types": "^6.26.0",
+    "babylon": "^6.18.0",
+    "css-to-react-native": "^2.0.4",
+    "gulp-less": "^3.3.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-transform": "^3.0.5",
+    "json5": "^0.5.1",
+    "less": "^2.7.2",
+    "postcss": "^6.0.9",
+    "react-native-css": "^2.0.6"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-postcss": "^7.0.0"
+  }
+}
