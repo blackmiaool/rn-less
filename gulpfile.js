@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const postcss = require('gulp-postcss');
 const less = require('gulp-less');
 const transform=require('gulp-transform');
-const rncss=require('./react-native-css').default;
+const rncss=require('./src/react-native-css');
 const style2object = require('./src/index');
 const rename = require("gulp-rename");
 

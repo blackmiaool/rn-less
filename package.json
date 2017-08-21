@@ -22,6 +22,7 @@
     "babel-traverse": "^6.26.0",
     "babel-types": "^6.26.0",
     "babylon": "^6.18.0",
+    "css": "^2.2.1",
     "css-to-react-native": "^2.0.4",
     "gulp-less": "^3.3.2",
     "gulp-rename": "^1.2.2",
@@ -29,7 +30,8 @@
     "json5": "^0.5.1",
     "less": "^2.7.2",
     "postcss": "^6.0.9",
-    "react-native-css": "^2.0.6"
+    "react-native-css": "^2.0.6",
+    "to-camel-case": "^1.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

@@ -18,12 +18,15 @@
             }
         ]
     },
+    "rn-config": {
+        "arguments": "CommonStyles, ThatStyles"
+    },
     "Navbar": {
         "container1": [
             {
                 "style": {
-                    "flexDirection": "column",
-                    "alignItems": "center"
+                    "flexDirection": "\"CommonStyles.a.b\"",
+                    "alignItems": "ThatStyles.a.c"
                 }
             }
         ],
@@ -48,7 +51,9 @@
                 "style": {
                     "width": 80,
                     "paddingTop": 7,
-                    "paddingBottom": 10
+                    "paddingRight": 0,
+                    "paddingBottom": 10,
+                    "paddingLeft": 0
                 }
             }
         ],
