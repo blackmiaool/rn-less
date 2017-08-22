@@ -17,7 +17,7 @@ gulp.task('css', function () {
             return JSON.stringify(rncss(code),false,4);
         }))
         .pipe(transform('utf8',(code)=>{
-            style2object(code);
+            style2object({code});
             return code;
         }))
         .pipe(rename({

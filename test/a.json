@@ -36,37 +36,7 @@
                     "container1"
                 ],
                 "style": {
-                    "width": 80,
-                    "paddingTop": 7,
-                    "paddingBottom": 10
-                }
-            }
-        ],
-        "container3": [
-            {
-                "selectors": [
-                    "container2",
-                    "container1"
-                ],
-                "style": {
-                    "width": 80,
-                    "paddingTop": 7,
-                    "paddingRight": 0,
-                    "paddingBottom": 10,
-                    "paddingLeft": 0
-                }
-            }
-        ],
-        "triangle": [
-            {
-                "style": {
-                    "borderTopWidth": 5,
-                    "borderLeftWidth": 5,
-                    "borderRightWidth": 5,
-                    "borderTopColor": "orange",
-                    "borderLeftColor": "transparent",
-                    "borderRightColor": "transparent",
-                    "backgroundColor": "transparent"
+                    "width": 80
                 }
             }
         ]
