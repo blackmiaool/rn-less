@@ -5,7 +5,7 @@ const {
     getStyleDecls
 } = require("./style");
 
-module.exports= function toJSS(css) {
+module.exports = function toJSS(css) {
 
     const JSONResult = {
         default: {}
@@ -23,11 +23,19 @@ module.exports= function toJSS(css) {
     function strip(str) {
         return str.replace(/^\./, '');
     }
+
+    function transformSelectors(selectors) {
+        return selectors.slice().reverse().map(strip);
+    }
+
+    function isArrayEqual(s1, s2) {
+        return s1.length === s2.length && !s1.some((v, i) => v !== s2[i]);
+    }
     for (const rule of stylesheet.rules) {
         if (rule.type !== 'rule') continue;
 
         for (const selector of rule.selectors) {
-            
+
             // selector = selector.replace(/\./g, '');
 
 
@@ -62,16 +70,31 @@ module.exports= function toJSS(css) {
             if (!component[key]) {
                 component[key] = [];
             }
-            if (selectors.length) {
+
+            // if (selectors.length) {
+            const refinedSelectors = transformSelectors(selectors);
+            const refinedStyle = getStyleDecls(rule);
+            const found = component[key].some((style) => {
+                if (isArrayEqual(style.selectors, refinedSelectors)) {
+                    Object.assign(style.style, refinedStyle);
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+            if (!found) {
                 component[key].push({
-                    selectors: selectors.reverse().map(strip),
-                    style: getStyleDecls(rule)
-                });
-            } else {
-                component[key].push({
-                    style: getStyleDecls(rule)
+                    selectors: refinedSelectors,
+                    style: refinedStyle
                 });
             }
+
+
+            // } else {
+            //     component[key].push({
+            //         style: getStyleDecls(rule)
+            //     });
+            // }
 
 
             // const styles = {
@@ -83,6 +106,16 @@ module.exports= function toJSS(css) {
             // JSONResult.push(styles);
         }
     }
-
+    for (const component in JSONResult) {
+        if(component==='rn-config'){
+            continue ;
+        }
+        for (const key in JSONResult[component]) {
+            const arr = JSONResult[component][key];
+            arr.sort((a, b) => {
+                return a.selectors.length - b.selectors.length;
+            });
+        }
+    }
     return JSONResult;
 }

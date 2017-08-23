@@ -2,6 +2,7 @@
     "default": {
         "b": [
             {
+                "selectors": [],
                 "style": {
                     "border": "none"
                 }
@@ -9,11 +10,17 @@
         ],
         "c": [
             {
+                "selectors": [],
+                "style": {
+                    "color": "red2"
+                }
+            },
+            {
                 "selectors": [
                     "b"
                 ],
                 "style": {
-                    "color": "red"
+                    "color": "red1"
                 }
             }
         ]
@@ -24,6 +31,7 @@
     "Navbar": {
         "container1": [
             {
+                "selectors": [],
                 "style": {
                     "flexDirection": "\"CommonStyles.a.b\"",
                     "alignItems": "ThatStyles.a.c"

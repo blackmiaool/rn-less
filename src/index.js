@@ -2,13 +2,15 @@ const postcss = require('postcss');
 
 const configSelector = 'rn-config';
 
-function traverse(obj, cb) {
+function traverse(obj, cb, path) {
     function handle(v, key) {
         if (typeof v == 'object' && v) {
-            traverse(v, cb);
+            path.push(key);
+            traverse(v, cb,path);
+            path.pop();
             return v;
         } else {
-            return cb(v, key);
+            return cb(v, key,path);
         }
     }
     if (Array.isArray(obj)) {
@@ -43,13 +45,14 @@ module.exports = function ({code:rawCode,before,after}) {
         delete input[configSelector];
     }
     let args = config.arguments || '';
-    const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.]|$)"));
+    
 
     let steps=[];
     function addStep(func){
         steps.push(func);
     }
     addStep(function(value,property){
+        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.]|$)"));
         console.log("!",value,property)
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
@@ -60,7 +63,7 @@ module.exports = function ({code:rawCode,before,after}) {
     });
     console.log(JSON.stringify(input));
     steps.forEach((func)=>{
-        traverse(input, function (value, key) {
+        traverse(input, function (value, key,path) {
             if(typeof key==='number'){
                 return ;
             }
@@ -70,7 +73,7 @@ module.exports = function ({code:rawCode,before,after}) {
             }else{
                 return value;
             }            
-        });
+        },[]);
     });
     
     let result = JSON.stringify(input, false, 4);
