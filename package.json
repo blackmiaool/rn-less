@@ -1,11 +1,10 @@
 {
   "name": "rn-less",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "description": "use less to style react native",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "cd react-native-css && npm install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -18,23 +17,13 @@
   },
   "homepage": "https://github.com/blackmiaool/rn-less#readme",
   "dependencies": {
-    "babel-generator": "^6.26.0",
-    "babel-traverse": "^6.26.0",
-    "babel-types": "^6.26.0",
-    "babylon": "^6.18.0",
     "css": "^2.2.1",
-    "css-to-react-native": "^2.0.4",
     "gulp-less": "^3.3.2",
     "gulp-rename": "^1.2.2",
     "gulp-transform": "^3.0.5",
     "json5": "^0.5.1",
-    "less": "^2.7.2",
-    "postcss": "^6.0.9",
-    "react-native-css": "^2.0.6",
-    "to-camel-case": "^1.0.0"
+    "to-camel-case": "^1.0.0",
+    "gulp": "^3.9.1"
   },
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-postcss": "^7.0.0"
-  }
+  "devDependencies": {}
 }
