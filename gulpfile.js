@@ -17,11 +17,11 @@ gulp.task('css', function () {
             return JSON.stringify(rncss(code),false,4);
         }))
         .pipe(transform('utf8',(code)=>{
-            style2object({code});
+            code=style2object({code});
             return code;
         }))
         .pipe(rename({
-            extname:'.json'
+            extname:'.less.js'
         }))
         .pipe(gulp.dest('./'));
 });

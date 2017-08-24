@@ -1,5 +1,5 @@
 const postcss = require('postcss');
-
+const JSON5=require('json5');
 const configSelector = 'rn-config';
 
 function traverseStyle(root, handleStyle, handleProperty) {
@@ -67,7 +67,7 @@ module.exports = function ({
         }, []);
     });
 
-    let result = JSON.stringify(input, false, 4);
+    let result = JSON5.stringify(input, false, 4);
     result = result.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '')
         .replace(/\n/g, '\n    ')
