@@ -1,6 +1,6 @@
 {
   "name": "rn-less",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "use less to style react native",
   "main": "index.js",
   "scripts": {
@@ -18,12 +18,13 @@
   "homepage": "https://github.com/blackmiaool/rn-less#readme",
   "dependencies": {
     "css": "^2.2.1",
+    "gulp": "^3.9.1",
     "gulp-less": "^3.3.2",
     "gulp-rename": "^1.2.2",
     "gulp-transform": "^3.0.5",
+    "gulp-watch": "^4.3.11",
     "json5": "^0.5.1",
-    "to-camel-case": "^1.0.0",
-    "gulp": "^3.9.1"
+    "to-camel-case": "^1.0.0"
   },
   "devDependencies": {}
 }
