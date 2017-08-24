@@ -1,4 +1,3 @@
-const postcss = require('postcss');
 const JSON5=require('json5');
 const configSelector = 'rn-config';
 
