@@ -1,5 +1,4 @@
 const gulp = require('gulp');
-const postcss = require('gulp-postcss');
 const less = require('gulp-less');
 const transform=require('gulp-transform');
 const rncss=require('./src/react-native-css');

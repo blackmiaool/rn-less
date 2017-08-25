@@ -70,8 +70,8 @@ module.exports = function ({
     result = result.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '')
         .replace(/\n/g, '\n    ')
-        .replace(/"style": {([^}]+)}/g, (full, content) => {
-            return `"style": StyleSheet.create({${content}})`;
+        .replace(/\bstyle: {([^}]+)}/g, (full, content) => {
+            return `style: StyleSheet.create({${content}})`;
         });
     let code = `
 const { StyleSheet } = require('react-native');
