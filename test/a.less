@@ -1,26 +1,23 @@
-rn-config {
-    arguments: CommonStyles, ThatStyles;
+rn-config{
+    arguments: unitWidth,CommonStyles, ThatStyles;
 }
 
-Navbar {
+NavBar {
     .container1 {
-        flex-direction: "CommonStyles.a.b";
-        align-items: ThatStyles.a.c;
-        .container2 {
-            width: 80;
-        }
+        flex-direction: column;
+        align-items: center;
     }
-}
-
-.b {
-    border: none;
-    .c {
-        color: red;
+    .container2 {
+        width: "unitWidth";
+        padding: 7 0 10 0;
     }
-    .c {
-        color: red1;
+    .triangle {
+        border-top-width: 5;
+        border-left-width: 5;
+        border-right-width: 5;
+        border-top-color: orange;
+        border-left-color: transparent;
+        border-right-color: transparent;
+        background-color: transparent;
     }
-}
-.c {
-    color: red2; 
 }

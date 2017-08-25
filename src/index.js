@@ -43,7 +43,7 @@ module.exports = function ({
         steps.push(func);
     }
     addStep(function (value, property, selectors) {
-        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.]|$)"));
+        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"]|$)"));
         console.log("!", value, property, selectors)
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
@@ -52,7 +52,7 @@ module.exports = function ({
             }
         }
     });
-    console.log(JSON.stringify(input));
+    console.log(1111,JSON.stringify(input));
     steps.forEach((func) => {
         traverseStyle(input, function (style, selectors) {
             return style;
@@ -75,7 +75,7 @@ module.exports = function ({
         });
     let code = `
 const { StyleSheet } = require('react-native');
-module.exports= function(${args}){
+module.exports= function({${args}}){
     return ${result}
 }
 `;

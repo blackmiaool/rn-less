@@ -98,7 +98,12 @@ function getStyleDecls(rule) {
 
         if (utils.arrayContains(property, numberize)) {
             const valueReplaced = value.replace(/px|\s*/g, '');
-            styles[toCamelCase(property)] = parseFloat(valueReplaced);
+            if(/^[\d\.]+$/.test(valueReplaced)){
+                styles[toCamelCase(property)] = parseFloat(valueReplaced);
+            }else{
+                styles[toCamelCase(property)] = valueReplaced;
+            }
+            
         } else if (utils.arrayContains(property, changeArr)) {
             const values = value.replace(/px/g, '').split(/[\s,]+/);
 
