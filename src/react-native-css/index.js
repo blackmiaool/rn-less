@@ -72,10 +72,10 @@ module.exports = function toJSS(css) {
             }
 
             // if (selectors.length) {
-            const refinedSelectors = transformSelectors(selectors);
+            const refinedSelector = transformSelectors(selectors);
             const refinedStyle = getStyleDecls(rule);
             const found = component[key].some((style) => {
-                if (isArrayEqual(style.selectors, refinedSelectors)) {
+                if (isArrayEqual(style.selector, refinedSelector)) {
                     Object.assign(style.style, refinedStyle);
                     return true;
                 } else {
@@ -84,7 +84,7 @@ module.exports = function toJSS(css) {
             });
             if (!found) {
                 component[key].push({
-                    selectors: refinedSelectors,
+                    selector: refinedSelector,
                     style: refinedStyle
                 });
             }
@@ -113,7 +113,7 @@ module.exports = function toJSS(css) {
         for (const key in JSONResult[component]) {
             const arr = JSONResult[component][key];
             arr.sort((a, b) => {
-                return a.selectors.length - b.selectors.length;
+                return a.selector.length - b.selector.length;
             });
         }
     }
