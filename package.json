@@ -1,6 +1,6 @@
 {
   "name": "rn-less",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "use less to style react native",
   "main": "src/index.js",
   "scripts": {
