@@ -149,6 +149,6 @@ module.exports= function({${args}}){
     code = code.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '');
 
-    console.log(code);
+    // console.log(code);
     return code;
 }
