@@ -120,7 +120,7 @@ module.exports = function ({
             styleSheetArr.push(str);
             index=styleSheetArr.length - 1;           
         }
-        return `allStyle[${index}]`;
+        return `allStyle.s${index}`;
     });
     const styleSheetObj = {};
     styleSheetArr.forEach((style, index) => {
