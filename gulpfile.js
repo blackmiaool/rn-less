@@ -9,9 +9,7 @@ gulp.task('css', function () {
     return gulp.src(['./**/*.less', '!node_modules/{,/**}'], {
             base: '.'
         })
-        .pipe(less({
-            // paths: [ path.join(__dirname, 'less', 'includes') ]
-        }))
+        .pipe(less({}))
         .pipe(transform('utf8', (code) => {
             try {
                 code = JSON.stringify(rncss(code), false, 4);

@@ -86,7 +86,7 @@ module.exports = function ({
             }
         }
     }
-
+    
     //sort property
     traverseStyle(input, function ({
         style
@@ -97,7 +97,7 @@ module.exports = function ({
         });
         return ret;
     });
-
+    
     //make variables work
     traverseProperty(input, function (value, property, selector) {
         const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
@@ -108,7 +108,7 @@ module.exports = function ({
             }
         }
     });
-
+    
     //use StyleSheet.create to create style
     const styleSheetArr = [];
     traverseStyle(input, function ({
@@ -127,7 +127,7 @@ module.exports = function ({
         styleSheetObj['s' + index] = JSON.parse(style);
     });
     codeBeforeReturn = `const allStyle = StyleSheet.create(${JSON5.stringify(styleSheetObj,false,4)});`
-
+    
     //flatten style
     if (!useHierarchy) {
         for (const component in input) {
@@ -150,7 +150,7 @@ module.exports = function({${args}}){
 `;
     code = code.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '');
-
+    console.log(code)
     // console.log(code);
     return code;
 }
