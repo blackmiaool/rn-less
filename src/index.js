@@ -40,10 +40,12 @@ function traverseProperty(root, func) {
             const value = style[key];
             const selector = chunk.selector.concat([styleStr, component]);
             let result = func(value, key, selector);
-            if (result === undefined) {
+            if (result === null) {
                 delete style[key];
+            }else if(result===undefined){
+                //do nothing
             } else {
-                result = `[[[${result}]]]`
+                result = `[[[${result}]]]`;
                 style[key] = result;
             }
         }
@@ -103,8 +105,6 @@ module.exports = function ({
                 return value;
             }
         }
-        return value;
-
     });
 
     //use StyleSheet.create to create style
@@ -149,6 +149,6 @@ module.exports= function({${args}}){
     code = code.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '');
 
-    // console.log(code);
+    console.log(code);
     return code;
 }
