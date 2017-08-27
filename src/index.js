@@ -52,7 +52,44 @@ function traverseProperty(root, func) {
     });
 }
 
-module.exports = function ({
+function rnLess(style) {
+    return function (target) {
+        const originalRender = target.prototype.render;
+
+        target.prototype.render = function (...renderArgs) {
+            const origianlCreateElement = React.createElement;
+
+            function fakeCreate(...args) {
+                if (args && args[1] && args[1].style) {
+                    if (typeof args[1].style === 'string') {
+                        args[1].style = [args[1].style];
+                    }
+                    if (Array.isArray(args[1].style)) {
+                        args[1].style.forEach((styleName, i) => {
+                            if (typeof styleName === 'string') {
+                                if (style[styleName]) {
+                                    args[1].style[i] = style[styleName];
+                                } else {
+                                    console.warn(`can't find style`, styleName);
+                                }
+                            }
+                        });
+                    }
+                }
+                return origianlCreateElement.apply(this, args);
+            }
+            fakeCreate.isFake = true;
+
+            if (!React.createElement.isFake) { //prevent nested proxy
+                React.createElement = fakeCreate;
+            }
+
+            return originalRender.apply(this, renderArgs);
+        };
+    };
+}
+
+function processStyleobject({
     code: rawCode,
     hierarchy: useHierarchy = false,
     before,
@@ -86,7 +123,7 @@ module.exports = function ({
             }
         }
     }
-    
+
     //sort property
     traverseStyle(input, function ({
         style
@@ -97,7 +134,7 @@ module.exports = function ({
         });
         return ret;
     });
-    
+
     //make variables work
     traverseProperty(input, function (value, property, selector) {
         const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
@@ -108,17 +145,17 @@ module.exports = function ({
             }
         }
     });
-    
+
     //use StyleSheet.create to create style
     const styleSheetArr = [];
     traverseStyle(input, function ({
         style
     }) {
         const str = JSON.stringify(style);
-        let index = styleSheetArr.indexOf(str);        
+        let index = styleSheetArr.indexOf(str);
         if (index === -1) {
             styleSheetArr.push(str);
-            index=styleSheetArr.length - 1;           
+            index = styleSheetArr.length - 1;
         }
         return `allStyle.s${index}`;
     });
@@ -127,7 +164,7 @@ module.exports = function ({
         styleSheetObj['s' + index] = JSON.parse(style);
     });
     codeBeforeReturn = `const allStyle = StyleSheet.create(${JSON5.stringify(styleSheetObj,false,4)});`
-    
+
     //flatten style
     if (!useHierarchy) {
         for (const component in input) {
@@ -150,7 +187,10 @@ module.exports = function({${args}}){
 `;
     code = code.replace(/"\[\[\[/g, '')
         .replace(/\]\]\]"/g, '');
-    console.log(code)
     // console.log(code);
     return code;
+}
+module.exports = {
+    rnLess,
+    processStyleobject
 }

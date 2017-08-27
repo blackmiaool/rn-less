@@ -2,7 +2,9 @@ const gulp = require('gulp');
 const less = require('gulp-less');
 const transform = require('gulp-transform');
 const rncss = require('./src/react-native-css');
-const style2object = require('./src/index');
+const {
+    processStyleobject
+} = require('./src/index');
 const rename = require("gulp-rename");
 
 gulp.task('css', function () {
@@ -20,7 +22,7 @@ gulp.task('css', function () {
         }))
         .pipe(transform('utf8', (code) => {
             try {
-                code = style2object({
+                code = processStyleobject({
                     code,
                     hierarchy: false
                 });

@@ -2,7 +2,7 @@
   "name": "rn-less",
   "version": "1.0.15",
   "description": "use less to style react native",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
