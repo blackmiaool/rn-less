@@ -100,7 +100,7 @@ module.exports = function ({
 
     //make variables work
     traverseProperty(input, function (value, property, selector) {
-        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"]|$)"));
+        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
                 value = value.replace(/^['"]/, '').replace(/['"]$/, '');
@@ -115,12 +115,12 @@ module.exports = function ({
         style
     }) {
         const str = JSON.stringify(style);
-        const index = styleSheetArr.indexOf(str);
+        let index = styleSheetArr.indexOf(str);        
         if (index === -1) {
-            return `allStyle.s${styleSheetArr.push(str) - 1}`;
-        } else {
-            return `allStyle[${index}]`;
+            styleSheetArr.push(str);
+            index=styleSheetArr.length - 1;           
         }
+        return `allStyle[${index}]`;
     });
     const styleSheetObj = {};
     styleSheetArr.forEach((style, index) => {

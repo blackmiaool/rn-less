@@ -1,5 +1,5 @@
-rn-config{
-    arguments: unitWidth,CommonStyles, ThatStyles;
+rn-config {
+    arguments: unitWidth, isiOS;
 }
 
 NavBar {
@@ -11,10 +11,6 @@ NavBar {
             padding: 7 0 10 0;
         }
     }
-    .container2 {
-        width: "unitWidth";
-        padding: 70 0 10 0;
-    }
     .triangle {
         border-top-width: 5;
         border-left-width: 5;
@@ -23,5 +19,170 @@ NavBar {
         border-left-color: transparent;
         border-right-color: transparent;
         background-color: transparent;
+    }
+}
+
+Timer {
+    .wrap {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: 45;
+        padding-bottom: 5;
+        padding-top: 0;
+        background-color: #fff;
+        .triangle {
+            border-top-width: 4;
+            border-left-width: 5;
+            border-bottom-width: 4;
+            border-right-width: 5;
+            width: 10;
+            height: 8;
+            border-color: transparent;
+        }
+        .triangleLeft {
+            border-right-color: transparent;
+        }
+        .triangleRight {
+            border-left-color: transparent;
+        }
+        .textWrap {
+            width: 181;
+            .text {
+                font-size: 12;
+                color: #7e6a5b;
+                text-align: center;
+            }
+        }
+    }
+}
+
+Product{
+    .container {
+        margin-top: 10;
+        margin-right: 10;
+        margin-left: 10;
+        height: 140;
+        flex-direction: row;
+        position: relative;
+        background-color: #fff;
+    }
+    .rightPanel {
+        flex: 1;
+        margin-left: 20;
+        padding-top: 15;
+        background-color: #fff;
+        padding-right: 15;
+    }
+    .name {
+        font-size: 16;
+        font-weight: bold;
+        color: #333
+    }
+    .summary {
+        font-size: 11;
+        line-height: 17;
+        margin-top: 'isiOS ? 5 : 3';
+        color: #888;
+    }
+    .priceRow {
+        margin-top: 'isiOS ? 2 : 0';
+        flex-direction: row;
+    }
+    .price1Unit {
+        font-size:12;
+        align-self: flex-start;
+        color: #eb5800;
+        padding-top: 1;
+    }
+    .price1Num {
+        font-size:20;
+        align-self: flex-end;
+        color: #eb5800;
+        margin-right: 8
+    }
+    .price2Unit {
+        font-size:12;
+        align-self: flex-end;
+        text-decoration-line: line-through;
+        text-decoration-color: #999;
+        color: #999;
+        margin-bottom: 'isiOS ? 2 : 0';
+    }
+
+    .price2Num {
+        font-size:12;
+        align-self: flex-end;
+        text-decoration-line: line-through;
+        text-decoration-color: #999;
+        color: #999;
+        margin-bottom: 'isiOS ? 2 : 0';
+    }
+    .buttonRow {
+        flex-direction: row;
+        position: absolute;
+        align-items: center;
+        bottom: 'isiOS ? 12 : 17';
+    }
+    .button {
+        background-color: #c6383f;
+        width: 60;
+        border-radius: 2;
+        height: 20;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 1;
+    }
+    .buttonGone {
+        background-color: #ccc
+    }
+    .buttonText {
+        color: #fff;
+        font-size:12;
+        text-align-vertical: center;
+        text-align: center;
+    }
+    .leftWrap {
+        height: 20;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        // padding-bottom: 1;
+        border-width: 1;
+        border-color: #d0bfa7;
+        border-radius: 50;
+        width: 80;
+        margin-left: 12;
+        position: relative;
+    }
+    .leftContentWrap {
+        position: absolute;
+        height: 100%;
+        left: 0;
+        // top: 0;
+        // bottom: 0;
+        // left:20;
+        // right: 20;
+        overflow: hidden;
+        background-color: transparent
+        // width: 20%
+    }
+    .leftContent {
+        position: absolute;
+        // width: 100%;
+        width: 78;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        background-color: #efe0c1;
+        border-radius: 50;
+    }
+    .leftText {
+        font-size:11;
+        color: #a5927d;
+        background-color: transparent;
+        margin-bottom: padding-bottom;
+        position: relative;
     }
 }
