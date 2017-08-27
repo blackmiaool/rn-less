@@ -24,12 +24,22 @@ gulp.task('css', function () {
             try {
                 code = processStyleobject({
                     code,
-                    hierarchy: false
+                    hierarchy: false,
+                    custom: function ({
+                        root,
+                        traverseProperty
+                    }) {
+                        traverseProperty(root,function({value,property}){
+                            console.log(value,property)
+                            if(property==='fontSize'){
+                                return `Theme.font${value}`;
+                            }
+                        });
+                    }
                 });
             } catch (e) {
                 console.log(e);
             }
-
             return code;
         }))
         .pipe(rename({

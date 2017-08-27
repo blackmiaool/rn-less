@@ -36,17 +36,17 @@ function traverseStyle(root, func) {
 function traverseProperty(root, func) {
     traverseChunk(root, function (chunk, styleStr, component) {
         const style = chunk.style;
-        for (const key in style) {
-            const value = style[key];
+        for (const property in style) {
+            const value = style[property];
             const selector = chunk.selector.concat([styleStr, component]);
-            let result = func(value, key, selector);
+            let result = func({value, property, selector});
             if (result === null) {
-                delete style[key];
+                delete style[property];
             } else if (result === undefined) {
                 //do nothing
             } else {
                 result = `[[[${result}]]]`;
-                style[key] = result;
+                style[property] = result;
             }
         }
     });
@@ -94,8 +94,7 @@ function rnLess(style) {
 function processStyleobject({
     code: rawCode,
     hierarchy: useHierarchy = false,
-    before,
-    after
+    custom
 }) {
     const input = JSON.parse(rawCode);
     // console.log(input);
@@ -125,7 +124,14 @@ function processStyleobject({
             }
         }
     }
-
+    if (custom) {
+        custom({
+            root: input,
+            traverseChunk,
+            traverseStyle,
+            traverseProperty
+        });
+    }
     //sort property
     traverseStyle(input, function ({
         style
@@ -138,7 +144,7 @@ function processStyleobject({
     });
 
     //make variables work
-    traverseProperty(input, function (value, property, selector) {
+    traverseProperty(input, function ({value, property, selector}) {
         const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
