@@ -53,6 +53,7 @@ function traverseProperty(root, func) {
 }
 
 function rnLess(style) {
+    const React=require('react');
     return function (target) {
         const originalRender = target.prototype.render;
 
