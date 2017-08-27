@@ -30,7 +30,6 @@ gulp.task('css', function () {
                         traverseProperty
                     }) {
                         traverseProperty(root,function({value,property}){
-                            console.log(value,property)
                             if(property==='fontSize'){
                                 return `Theme.font${value}`;
                             }
