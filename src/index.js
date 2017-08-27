@@ -53,7 +53,7 @@ function traverseProperty(root, func) {
 }
 
 function rnLess(style) {
-    const React=require('react');
+    const React = require('react');
     return function (target) {
         const originalRender = target.prototype.render;
 
@@ -84,8 +84,9 @@ function rnLess(style) {
             if (!React.createElement.isFake) { //prevent nested proxy
                 React.createElement = fakeCreate;
             }
-
-            return originalRender.apply(this, renderArgs);
+            const ret = originalRender.apply(this, renderArgs);
+            React.createElement = origianlCreateElement;
+            return ret;
         };
     };
 }
