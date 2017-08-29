@@ -31,12 +31,12 @@ CardExampleStyle {
 import { rnLess } from 'rn-less/runtime';// import the decorator
 import style from './a.less.js'; // impoprt the style
 
-const rootStyle = style({containerMargin,bgColor});// get the style object
+const rootStyle = style({containerMargin,bgColor});// pass your arguments and get the style object
 
 //decorate the component with the style
 @rnLess(rootStyle.CardExampleStyle)
 class CardExample extends Component {
-    //use class names in the less file as style string
+    //the strings in the style attribute are the class names in the less file
     _renderTitle(title) {
         // function invoking is processed, but stateless is not
         return (
