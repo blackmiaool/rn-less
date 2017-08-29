@@ -1,119 +1,64 @@
-working on it
+# rn-less
 
-### Input
+Write react-native style with less.
 
-```less
-rn-config {
-    arguments: CommonStyles, ThatStyles;
+``` less
+rn-config{//style's config
+    arguments: containerMargin,bgColor;//arguments used in less
 }
-
-Navbar {
-    .container1 {
-        flex-direction: "CommonStyles.a.b";
-        align-items: ThatStyles.a.c;
-        .container2 {
-            width: 80;
-            padding-top: 7;
-            padding-bottom: 10;
-            .container3 {
-                width: 80;
-                padding: 7 0 10 0;                
-            }
+CardExampleStyle {
+    .render-title{
+        flex: 1;
+        align-items: center;
+        margin-top: 20;
+        .title-text{
+            font-size: 20
         }
     }
-    .triangle {
-        border-top-width: 5;
-        border-left-width: 5;
-        border-right-width: 5;
-        border-top-color: orange;
-        border-left-color: transparent;
-        border-right-color: transparent;
-        background-color: transparent;
-    }
-}
-
-.b {
-    border: none;
-    .c {
-        color: red;
+    .container {
+        flex: 1;
+        margin-top: containerMargin;// use the variable declared above
+        margin-bottom: "containerMargin";// use the variable with string
+        .title {
+            font-size: "containerMargin/2";// and any expression starts with variable name
+            background-color: bgColor;
+        }
     }
 }
 ```
 
-### Output
-```javascript
-const { StyleSheet } = require('react-native');
-module.exports= function(CommonStyles, ThatStyles){
-    return {
-        "default": {
-            "b": [
-                {
-                    "style": StyleSheet.create({
-                        "border": "none"
-                    })
-                }
-            ],
-            "c": [
-                {
-                    "selectors": [
-                        "b"
-                    ],
-                    "style": StyleSheet.create({
-                        "color": "red"
-                    })
-                }
-            ]
-        },
-        "Navbar": {
-            "container1": [
-                {
-                    "style": StyleSheet.create({
-                        "flexDirection": CommonStyles.a.b,
-                        "alignItems": ThatStyles.a.c
-                    })
-                }
-            ],
-            "container2": [
-                {
-                    "selectors": [
-                        "container1"
-                    ],
-                    "style": StyleSheet.create({
-                        "width": 80,
-                        "paddingTop": 7,
-                        "paddingBottom": 10
-                    })
-                }
-            ],
-            "container3": [
-                {
-                    "selectors": [
-                        "container2",
-                        "container1"
-                    ],
-                    "style": StyleSheet.create({
-                        "width": 80,
-                        "paddingTop": 7,
-                        "paddingRight": 0,
-                        "paddingBottom": 10,
-                        "paddingLeft": 0
-                    })
-                }
-            ],
-            "triangle": [
-                {
-                    "style": StyleSheet.create({
-                        "borderTopWidth": 5,
-                        "borderLeftWidth": 5,
-                        "borderRightWidth": 5,
-                        "borderTopColor": "orange",
-                        "borderLeftColor": "transparent",
-                        "borderRightColor": "transparent",
-                        "backgroundColor": "transparent"
-                    })
-                }
-            ]
-        }
+```jsx
+import { rnLess } from 'rn-less/runtime';// import the decorator
+import style from './a.less.js'; // impoprt the style
+
+const rootStyle = style({containerMargin,bgColor});// get the style object
+
+//decorate the component with the style
+@rnLess(rootStyle.CardExampleStyle)
+class CardExample extends Component {
+    //use class names in the less file as style string
+    _renderTitle(title) {
+        // function invoking is processed, but stateless is not
+        return (
+            <View style="render-title">
+                <Text style="title-text">{title}</Text>
+            </View>
+        )
+    }
+
+    render() {
+        return (
+            <ScrollView>
+                <View style="container">                    
+                    {this._renderTitle('Basic')}
+                    <Card>
+                        <CardTitle>
+                            <Text style={["title"]}>Card Title</Text>
+                        </CardTitle>
+                    </Card>
+                </View>
+            </ScrollView>
+        )
     }
 }
 ```
