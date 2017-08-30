@@ -2,6 +2,8 @@
 
 Write react-native style with less.
 
+Example:
+
 ``` less
 rn-config{//style's config
     arguments: containerMargin,bgColor;//arguments used in less
@@ -28,7 +30,7 @@ CardExampleStyle {
 ```
 
 ```jsx
-import { rnLess } from 'rn-less/runtime';// import the decorator
+import { rnLess } from 'rn-less/src/runtime';// import the decorator
 import style from './a.less.js'; // impoprt the style
 
 const rootStyle = style({containerMargin,bgColor});// pass your arguments and get the style object
@@ -61,4 +63,12 @@ class CardExample extends Component {
         )
     }
 }
+```
+
+### Install
+
+```bash
+npm i -S rn-less
+npm i -g gulp
+
 ```

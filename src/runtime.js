@@ -1,7 +1,7 @@
 function rnLess(style) {
     const React = require('react');
-    if(!React.rnLessOrigianlCreateElement){//save original createElement
-        React.rnLessOrigianlCreateElement=React.createElement;
+    if(!React.rnLessOriginalCreateElement){//save original createElement
+        React.rnLessOriginalCreateElement=React.createElement;
     }
     return function (target) {
         const originalRender = target.prototype.render;
@@ -12,7 +12,7 @@ function rnLess(style) {
             //2. start rendering
             const ret = originalRender.apply(this, renderArgs);
             //3. restore the createElement
-            React.createElement = React.rnLessOrigianlCreateElement;
+            React.createElement = React.rnLessOriginalCreateElement;
             return ret;            
         };
     };
@@ -34,7 +34,7 @@ function rnLess(style) {
                 });
             }
         }
-        return React.rnLessOrigianlCreateElement.apply(this, args);
+        return React.rnLessOriginalCreateElement.apply(this, args);
     }
 }
 module.exports = {
