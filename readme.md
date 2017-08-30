@@ -134,6 +134,7 @@ code = processStyleobject({
         });
     }
 });
+```
 
 #### Enjoy the vscode extension
 
