@@ -1,12 +1,12 @@
 const JSON5 = require('json5');
 const configSelector = 'rn-config';
 
-function traverseChunk(root, cb) {
+function traverseChunk(root, func) {
     for (const component in root) {
-        for (const styleStr in root[component]) {
-            let arr = root[component][styleStr];
-            root[component][styleStr] = arr.map(function (chunk, i) {
-                const result = cb(chunk, styleStr, component);
+        for (const styleName in root[component]) {
+            let arr = root[component][styleName];
+            root[component][styleName] = arr.map(function (chunk, i) {
+                const result = func({chunk, styleName, component});
                 if (result !== undefined) {
                     return result;
                 } else {
@@ -18,11 +18,11 @@ function traverseChunk(root, cb) {
 }
 
 function traverseStyle(root, func) {
-    traverseChunk(root, function (chunk, styleStr, component) {
+    traverseChunk(root, function ({chunk, styleName, component}) {
         const style = chunk.style;
         let result = func({
             style,
-            selector: styleStr,
+            selector: styleName,
             chunk,
             component
         });
@@ -34,11 +34,11 @@ function traverseStyle(root, func) {
 }
 
 function traverseProperty(root, func) {
-    traverseChunk(root, function (chunk, styleStr, component) {
+    traverseChunk(root, function ({chunk, styleName, component}) {
         const style = chunk.style;
         for (const property in style) {
             const value = style[property];
-            const selector = chunk.selector.concat([styleStr, component]);
+            const selector = chunk.selector.concat([styleName, component]);
             let result = func({value, property, selector});
             if (result === null) {
                 delete style[property];
@@ -71,9 +71,9 @@ function processStyleobject({
     //flatten style
     if (!useHierarchy) {
         for (const component in input) {
-            for (const styleStr in input[component]) {
-                const arr = input[component][styleStr];
-                input[component][styleStr] = [{
+            for (const styleName in input[component]) {
+                const arr = input[component][styleName];
+                input[component][styleName] = [{
                     selector: [],
                     style: arr.reduce(function (p, {
                         style
@@ -137,8 +137,8 @@ function processStyleobject({
     //flatten style
     if (!useHierarchy) {
         for (const component in input) {
-            for (const styleStr in input[component]) {
-                input[component][styleStr] = input[component][styleStr][0].style;
+            for (const styleName in input[component]) {
+                input[component][styleName] = input[component][styleName][0].style;
             }
         }
     }

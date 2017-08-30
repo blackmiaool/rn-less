@@ -7,10 +7,11 @@ const {
 } = require('./src/index');
 const rename = require("gulp-rename");
 
+const sourceDir = './example';
 gulp.task('css', function () {
-    return gulp.src(['./**/*.less', '!node_modules/{,/**}'], {
-            base: '.'
-        })
+    return gulp.src([`${sourceDir}/**/*.less`], {
+        base: sourceDir
+    })
         .pipe(less({}))
         .pipe(transform('utf8', (code) => {
             try {
@@ -27,12 +28,29 @@ gulp.task('css', function () {
                     hierarchy: false,
                     custom: function ({
                         root,
-                        traverseProperty
+                        traverseProperty,
+                        traverseStyle,
+                        traverseChunk
                     }) {
-                        traverseProperty(root,function({value,property}){
-                            if(property==='fontSize'){
+                        // font-size:10 -> fontSize:Theme.font10
+                        traverseProperty(root, function ({ value, property, selector }) {
+                            if (property === 'fontSize') {
                                 return `Theme.font${value}`;
                             }
+                        });
+
+                        // sort the keys 
+                        traverseStyle(root, function ({ style, selector, chunk, component }) {
+                            const ret = {};
+                            Object.keys(style).sort().forEach((key) => {
+                                ret[key] = style[key];
+                            });
+                            return ret;
+                        });
+
+                        //print the chunks
+                        traverseChunk(root, function ({ chunk, styleName, component }) {
+                            console.log(chunk);
                         });
                     }
                 });
@@ -44,9 +62,10 @@ gulp.task('css', function () {
         .pipe(rename({
             extname: '.less.js'
         }))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest(sourceDir));
 });
 
 gulp.task('default', (() => {
     gulp.start(['css']);
 }));
+gulp.watch(`${sourceDir}/**/*.less`, ['css']);

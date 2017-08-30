@@ -31,7 +31,7 @@ CardExampleStyle {
 
 ```jsx
 import { rnLess } from 'rn-less/src/runtime';// import the decorator
-import style from './a.less.js'; // impoprt the style
+import style from './a.less.js'; // import the style
 
 const rootStyle = style({containerMargin,bgColor});// pass your arguments and get the style object
 
@@ -65,10 +65,79 @@ class CardExample extends Component {
 }
 ```
 
-### Install
+## How to use it
 
+##### Install things
 ```bash
+# enter the root directory of the project
 npm i -S rn-less
+cp -i node_modules/rn-less/example/gulpfile.js .
 npm i -g gulp
 
 ```
+##### Modify the gulpfile.js
+```javascript
+// change it to your source folder
+const sourceDir='./app';
+```
+
+##### Run the gulp
+```bash
+gulp
+```
+##### Create your less file and import it in a js/jsx file
+
+```javascript
+import { rnLess } from 'rn-less/src/runtime';// import the decorator
+import style from './a.less.js'; // import the style
+
+const rootStyle = style({containerMargin,bgColor});// pass your arguments and get the style object
+
+//decorate the component with the style
+@rnLess(rootStyle.CardExampleStyle)
+class CardExample extends Component {}
+```
+
+## What's more
+
+#### Process the less output
+
+```javascript
+code = processStyleobject({
+    code,
+    hierarchy: false,
+    custom: function ({
+        root,
+        traverseProperty,
+        traverseStyle,
+        traverseChunk
+    }) {
+        // font-size:10 -> fontSize:Theme.font10
+        traverseProperty(root, function ({ value, property, selector }) {
+            if (property === 'fontSize') {
+                return `Theme.font${value}`;
+            }
+        });
+
+        // sort the keys 
+        traverseStyle(root, function ({ style, selector, chunk, component }) {
+            const ret = {};
+            Object.keys(style).sort().forEach((key) => {
+                ret[key] = style[key];
+            });
+            return ret;
+        });
+
+        //print the chunks
+        traverseChunk(root, function ({ chunk, styleName, component }) {
+            console.log(chunk);
+        });
+    }
+});
+
+#### Enjoy the vscode extension
+
+[https://github.com/blackmiaool/rn-less-helper](https://github.com/blackmiaool/rn-less-helper)
+<p align="center">      
+    <img width="600" src="https://github.com/blackmiaool/rn-less-helper/blob/master/function.gif">  
+</p>

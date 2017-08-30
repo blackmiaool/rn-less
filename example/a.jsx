@@ -50,12 +50,12 @@ class CardExample extends Component {
                                 style="button"
                                 onPress={() => { }}>
                                 Button 1
-              </Button>
+                            </Button>
                             <Button
                                 style="button"
                                 onPress={() => { }}>
                                 Button 2
-              </Button>
+                            </Button>
                         </CardAction>
                     </Card>
 
@@ -72,12 +72,12 @@ class CardExample extends Component {
                                 style="button"
                                 onPress={() => { }}>
                                 Button 1
-              </Button>
+                            </Button>
                             <Button
                                 style="button"
                                 onPress={() => { }}>
                                 Button 2
-              </Button>
+                            </Button>
                         </CardAction>
                     </Card>
 
