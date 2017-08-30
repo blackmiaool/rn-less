@@ -2,7 +2,7 @@
 
 Style react-native with less.
 
-Example:
+### Example
 
 ``` less
 rn-config{//style's config
