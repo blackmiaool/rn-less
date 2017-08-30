@@ -2,6 +2,8 @@
 
 Style react-native with less.
 
+Powered by [react-native-css](https://github.com/sabeurthabti/react-native-css) and [less.js](http://lesscss.org/).
+
 ### Example
 
 ``` less
@@ -80,6 +82,10 @@ npm i -g gulp
 // change it to your source folder
 const sourceDir='./app';
 ```
+#### Notice
+
+All the styles in a component with the same className would be combined into a single one. It ignore the hierarchy of the less file. The hierarchy in the less file is just for you, not for rn-less.
+
 
 #### Run the gulp
 ```bash
