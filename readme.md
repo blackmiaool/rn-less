@@ -85,7 +85,7 @@ const sourceDir='./app';
 ```
 #### Notice
 
-All the styles in a component with the same className would be combined into a single one. It ignore the hierarchy of the less file. The hierarchy in the less file is just for you, not for rn-less.
+All the styles in a component with the same className would be combined into a single one. It ignores the hierarchy of the less file. The hierarchy in the less file is just for you, not for rn-less.
 
 
 #### Run the gulp
