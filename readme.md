@@ -1,6 +1,6 @@
 # rn-less
 
-Write react-native style with less.
+Style react-native with less.
 
 Example:
 
@@ -67,7 +67,7 @@ class CardExample extends Component {
 
 ## How to use it
 
-##### Install things
+#### Install things
 ```bash
 # enter the root directory of the project
 npm i -S rn-less
@@ -75,17 +75,17 @@ cp -i node_modules/rn-less/example/gulpfile.js .
 npm i -g gulp
 
 ```
-##### Modify the gulpfile.js
+#### Modify the gulpfile.js
 ```javascript
 // change it to your source folder
 const sourceDir='./app';
 ```
 
-##### Run the gulp
+#### Run the gulp
 ```bash
 gulp
 ```
-##### Create your less file and import it in a js/jsx file
+#### Create your less file and import it in a js/jsx file
 
 ```javascript
 import { rnLess } from 'rn-less/src/runtime';// import the decorator
