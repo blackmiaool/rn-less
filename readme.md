@@ -38,6 +38,7 @@ import style from './a.less.js'; // import the style
 const rootStyle = style({containerMargin,bgColor});// pass your arguments and get the style object
 
 //decorate the component with the style
+//write the decorator in this a.b way to let the vscode extention track the style
 @rnLess(rootStyle.CardExampleStyle)
 class CardExample extends Component {
     //the strings in the style attribute are the class names in the less file
