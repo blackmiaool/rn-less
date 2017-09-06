@@ -147,5 +147,5 @@ code = processStyleobject({
 
 [https://github.com/blackmiaool/rn-less-helper](https://github.com/blackmiaool/rn-less-helper)
 <p align="center">      
-    <img width="600" src="https://github.com/blackmiaool/rn-less-helper/blob/master/function.gif">  
+    <img width="600" src="https://raw.githubusercontent.com/blackmiaool/rn-less-helper/master/function.gif">  
 </p>

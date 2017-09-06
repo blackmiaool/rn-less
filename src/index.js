@@ -6,7 +6,7 @@ function traverseChunk(root, func) {
         for (const styleName in root[component]) {
             let arr = root[component][styleName];
             root[component][styleName] = arr.map(function (chunk, i) {
-                const result = func({chunk, styleName, component});
+                const result = func({ chunk, styleName, component });
                 if (result !== undefined) {
                     return result;
                 } else {
@@ -18,7 +18,7 @@ function traverseChunk(root, func) {
 }
 
 function traverseStyle(root, func) {
-    traverseChunk(root, function ({chunk, styleName, component}) {
+    traverseChunk(root, function ({ chunk, styleName, component }) {
         const style = chunk.style;
         let result = func({
             style,
@@ -34,12 +34,12 @@ function traverseStyle(root, func) {
 }
 
 function traverseProperty(root, func) {
-    traverseChunk(root, function ({chunk, styleName, component}) {
+    traverseChunk(root, function ({ chunk, styleName, component }) {
         const style = chunk.style;
         for (const property in style) {
             const value = style[property];
             const selector = chunk.selector.concat([styleName, component]);
-            let result = func({value, property, selector});
+            let result = func({ value, property, selector });
             if (result === null) {
                 delete style[property];
             } else if (result === undefined) {
@@ -103,9 +103,24 @@ function processStyleobject({
         });
         return ret;
     });
+    //support transform
+    traverseProperty(input, function ({ value, property, selector }) {
+        if (property === 'transform') {
+            const arr = [];
+            const match = value.replace(/(\w+)\s*\(([^)]+)\)\s*/g, (nothing, name, value) => {
+                if (value.match(/^[\d\.]+$/)) {
+                    value = value * 1;
+                }
+                arr.push({ [name]: value });
+            });
+            console.log(JSON5.stringify(arr))
+            return JSON5.stringify(arr);
+        }
+        console.log(property, value);
+    });
 
     //make variables work
-    traverseProperty(input, function ({value, property, selector}) {
+    traverseProperty(input, function ({ value, property, selector }) {
         const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
@@ -132,7 +147,7 @@ function processStyleobject({
     styleSheetArr.forEach((style, index) => {
         styleSheetObj['s' + index] = JSON.parse(style);
     });
-    codeBeforeReturn = `const allStyle = StyleSheet.create(${JSON5.stringify(styleSheetObj,false,4)});`
+    codeBeforeReturn = `const allStyle = StyleSheet.create(${JSON5.stringify(styleSheetObj, false, 4)});`
 
     //flatten style
     if (!useHierarchy) {
@@ -154,9 +169,14 @@ module.exports = function({${args}}){
     return ${result};
 };
 `;
-    code = code.replace(/"\[\[\[/g, '')
-        .replace(/\]\]\]"/g, '');
-    // console.log(code);
+    
+    code = code
+        .replace(/"\[\[\[([\S\s]+?)\]\]\]"/g, function (content) {
+            return content.replace(/\\"/g, '"')
+        })
+        .replace(/"\[\[\[/g, '')
+        .replace(/\]\]\]"/g, '')
+
     return code;
 }
 

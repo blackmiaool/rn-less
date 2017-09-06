@@ -36,6 +36,7 @@ class CardExample extends Component {
     render() {
         return (
             <ScrollView>
+                <View style={["container", "sss"]}></View>
                 <View style="container">
                     {this._renderTitle('Basic')}
                     <Card>
@@ -128,10 +129,10 @@ class CardExample extends Component {
                     </Card>
 
                     {this._renderTitle('Card Image')}
-                    <Card>
-                        <CardImage>
+                    <Card style="title">
+                        <CardImage style="card-image6">
                             <Image
-                                style="card-image2"
+                                style="card-image3"
                                 source={{ uri: 'https://static.pexels.com/photos/59523/pexels-photo-59523.jpeg' }}
                             />
                         </CardImage>
