@@ -19,6 +19,7 @@ gulp.task('css', function () {
             } catch (e) {
                 console.log(e);
             }
+            console.log(code)
             return code;
         }))
         .pipe(transform('utf8', (code) => {
@@ -50,7 +51,6 @@ gulp.task('css', function () {
 
                         //print the chunks
                         traverseChunk(root, function ({ chunk, styleName, component }) {
-                            console.log(chunk);
                         });
                     }
                 });

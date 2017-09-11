@@ -113,10 +113,8 @@ function processStyleobject({
                 }
                 arr.push({ [name]: value });
             });
-            console.log(JSON5.stringify(arr))
             return JSON5.stringify(arr);
         }
-        console.log(property, value);
     });
 
     //make variables work
