@@ -116,10 +116,10 @@ function processStyleobject({
             return JSON5.stringify(arr);
         }
     });
-
+    const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"? *\/+-]|$)"));
     //make variables work
     traverseProperty(input, function ({ value, property, selector }) {
-        const regexpArr = args.split(',').map(arg => arg.trim()).map(name => new RegExp(`(^|['"])` + name + "([\\[\\.\"?]|$)"));
+    
         if (typeof value === 'string') {
             if (regexpArr.some((regexp) => regexp.test(value))) {
                 value = value.replace(/^['"]/, '').replace(/['"]$/, '');
@@ -167,7 +167,7 @@ module.exports = function({${args}}){
     return ${result};
 };
 `;
-    
+
     code = code
         .replace(/"\[\[\[([\S\s]+?)\]\]\]"/g, function (content) {
             return content.replace(/\\"/g, '"')
