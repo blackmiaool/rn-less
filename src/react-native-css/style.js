@@ -108,7 +108,11 @@ function getStyleDecls(rule) {
             const values = value.replace(/px/g, '').split(/[\s,]+/);
 
             values.forEach((v, index, arr) => {
-                arr[index] = parseInt(v);
+                if(v.match(/^\d+$/)){
+                    arr[index] = parseInt(v);
+                }else{
+                    arr[index] = v;
+                }                
                 return arr;
             });
 
